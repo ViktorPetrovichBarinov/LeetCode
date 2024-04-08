@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+
 public class Solution {
     public boolean checkValidString(String s) {
         int openMin = 0;
@@ -26,6 +28,7 @@ public class Solution {
                 openMin = 0;
             }
         }
+
 
         return openMin == 0;
     }
