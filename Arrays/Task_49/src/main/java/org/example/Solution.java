@@ -12,24 +12,19 @@ public class Solution {
         HashMap<Hashing, List<String>> map = new HashMap<>();
 
         for (int i = 0; i < length; i++) {
-            int[] anagram = anagram(strs[i]);
             List<String> currentList;
-            Hashing currentHash = new Hashing(anagram);
+            Hashing currentHash = new Hashing(anagram(strs[i]));
             if (!map.containsKey(currentHash)) {
                 currentList = new ArrayList<>();
-                currentList.add(strs[i]);
+                currentList.addFirst(strs[i]);
                 map.put(currentHash, currentList);
             } else {
                 currentList = map.get(currentHash);
-                currentList.add(strs[i]);
+                currentList.addFirst(strs[i]);
                 map.put(currentHash, currentList);
             }
         }
-        List<List<String>> answer = new ArrayList<>();
-        for (Hashing key : map.keySet()) {
-            answer.add(map.get(key));
-        }
-        return answer;
+        return new ArrayList<>(map.values());
     }
 
     public class Hashing {
@@ -49,8 +44,6 @@ public class Solution {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
             Hashing hashing = (Hashing) o;
             return Arrays.equals(this.arr, hashing.arr);
         }
