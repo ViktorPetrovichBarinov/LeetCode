@@ -1,19 +1,32 @@
 package org.example;
 
+import java.util.*;
+
 public class Solution {
+    //private static final int RANGE = 10_000;
     public int[] topKFrequent(int[] nums, int k) {
         int length = nums.length;
-        int[] answer = new int[k];
-        int[] anagram = new int[length];
+        HashMap<Integer, Integer> map = new HashMap<>();
         for (int elem : nums) {
-            anagram[elem]++;
+            if (map.putIfAbsent(elem, 1) != null) {
+                map.put(elem, map.get(elem) + 1);
+            }
         }
-        for (int i = 0; i < k; i++){
-            anagram[i] =
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue()); // Сортировка по значению
+
+        int[] answer = new int[k];
+        for (int i = 0; i < k; i++) {
+            answer[i] = list.get(list.size() - 1 - i).getKey();
         }
+        //System.out.println(Arrays.toString(answer));
+
+
+        return answer;
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Solution sol = new Solution();
+        System.out.println(Arrays.toString(sol.topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2)));
     }
 }
