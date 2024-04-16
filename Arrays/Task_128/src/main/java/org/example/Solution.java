@@ -8,6 +8,45 @@ public class Solution {
         if (nums.length == 0 || nums.length == 1) {
             return nums.length;
         }
+
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        for (int num : nums) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+        int histLength = max - min + 1;
+        if (histLength < 100_000_000) {
+            boolean[] histogram = new boolean[histLength];
+
+            for (int num : nums) {
+                histogram[num - min] = true;
+            }
+
+            int answer = 0;
+            int currentLength = 0;
+            for (boolean b : histogram) {
+                if (currentLength != 0) {
+                    if (b) {
+                        currentLength++;
+                    } else {
+                        answer = Math.max(currentLength, answer);
+                        currentLength = 0;
+                    }
+                } else {
+                    if (b) {
+                        currentLength++;
+                    }
+                }
+            }
+            return Math.max(answer, currentLength);
+        }
+
         HashSet<Integer> set = new HashSet<>();
         for (int num : nums) {
             set.add(num);
