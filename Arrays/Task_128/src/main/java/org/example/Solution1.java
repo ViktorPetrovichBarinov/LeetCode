@@ -5,6 +5,7 @@ import java.util.*;
 public class Solution1 {
     public int longestConsecutive(int[] nums) {
         //val / isChecked
+
         HashMap<Integer, Boolean> map = new HashMap<>();
         for (int num : nums) {
             map.putIfAbsent(num, false);
