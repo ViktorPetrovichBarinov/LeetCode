@@ -2,36 +2,42 @@ package org.example;
 
 public class Solution {
     public int islandPerimeter(int[][] grid) {
-        boolean[][] isChecked = new boolean[grid.length][grid[0].length];
         int answer = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1) {
-                    answer += 4 - neighbourCheck(grid, i, j);
-                }
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int previous = 0;
+        for (int i = 0; i < rows; i++) {
+            previous = 0;
+            for (int j = 0; j < cols; j++) {
+                answer += previous ^ grid[i][j];
+                previous = grid[i][j];
             }
+            answer += previous;
         }
+
+
+        for (int i = 0; i < cols; i++) {
+            previous = 0;
+            for (int j = 0; j < rows; j++) {
+                answer += previous ^ grid[j][i];
+                previous = grid[j][i];
+            }
+            answer += previous;
+        }
+
 
         return answer;
     }
 
-    public int neighbourCheck(int[][] grid, int row, int col) {
-        int answer = 0;
-        if (row + 1 < grid.length && grid[row + 1][col] == 1) {
-            answer++;
-        }
-        if (row - 1 >= 0 && grid[row - 1][col] == 1) {
-            answer++;
-        }
-        if (col + 1 < grid[0].length && grid[row][col + 1] == 1) {
-            answer++;
-        }
-        if (col - 1 >= 0 && grid[row][col - 1] == 1) {
-            answer++;
-        }
-        return answer;
-    }
+    
     public static void main(String[] args) {
-
+        Solution sol = new Solution();
+        int[][] nums = new int[][]{
+                {0,1,0,0},
+                {1,1,1,0},
+                {0,1,0,0},
+                {1,1,0,0}
+        };
+        sol.islandPerimeter(nums);
     }
 }
