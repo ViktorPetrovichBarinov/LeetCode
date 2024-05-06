@@ -6,61 +6,16 @@ public class Solution {
 
     public int trap(int[] height) {
         int length = height.length;
-        int firstElement = height[0];
-        int firstIndex = 0;
-        int maxElement = -1;
-        int maxElementIndex = -2;
-        int maxElementSum = 0;
-        int currentSum = 0;
+        int left = 0;
+        int right = 0;
         int answer = 0;
-        for (int i = 1; i < length; i++) {
-            if (i != firstIndex + 1) {
-                if (height[i] >= firstElement) {
-                    answer += currentSum;
-                    currentSum = 0;
-                    firstElement = height[i];
-                    firstIndex = i;
-                    maxElement = -1;
-                    maxElementIndex = -1;
-                    continue;
-                } else {
-                    currentSum += firstElement - height[i];
-                    if (height[i] > maxElement) {
-                        maxElement = height[i];
-                        maxElementIndex = i;
-                        maxElementSum = currentSum;
-                    }
-                }
-            } else {
-                if (height[i] > firstElement) {
-                    firstElement = height[i];
-                    firstIndex = i;
-                } else {
-                    currentSum += firstElement - height[i];
-                    if (height[i] > maxElement) {
-                        maxElement = height[i];
-                        maxElementIndex = i;
-                        maxElementSum = currentSum;
-                    }
-                }
-            }
-
-            if (i == length - 1 && currentSum != 0) {
-                answer += maxElementSum - (firstElement - maxElement) * (maxElementIndex - firstIndex);
-                firstElement = maxElement;
-                firstIndex = maxElementIndex;
-                i = firstIndex;
-                currentSum = 0;
-                maxElementIndex = -1;
-                maxElement = -1;
-                maxElementSum = 0;
-
-                if (i == -2) {
-                    return  0;
-                }
+        while (left < length) {
+            if (height[left] <= height[right]) {
+                answer += (right - left) * (height[right] - height[left]);
+                left = right;
+                right++;
             }
         }
-        return answer;
     }
 
 
