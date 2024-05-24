@@ -9,17 +9,13 @@ public class Solution {
         int max = 0;
         String maxStr = "";
         for (int i = 0; i < s.length(); i++) {
-            sb = new StringBuilder();
-            for (int j = i; j < s.length(); j++) {
-                sb.append(s.charAt(j));
-                if (sb.length() <= max) {
-                    continue;
-                }
-                if (isPolyndrom(sb.toString())) {
-                    if (max < sb.length()) {
-                        max = sb.toString().length();
-                        maxStr = sb.toString();
-                    }
+            int currentLength = 1;
+            int padding = 1;
+            if (i - padding >= 0 && i + padding < s.length()) {
+                if (s.charAt(i - padding) == s.charAt(i + padding)) {
+                    currentLength += 2;
+                } else {
+
                 }
             }
         }
