@@ -6,29 +6,14 @@ import java.util.Arrays;
 
 public class Solution {
     public int longestSubarray(int[] nums) {
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0) {
-                break;
-            }
-            if (i == nums.length - 1) {
-                return 0;
-            }
-        }
-
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 1) {
-                break;
-            }
-            if (i == nums.length - 1) {
-                return nums.length - 1;
-            }
-        }
+        boolean isFillOnes = true;
 
         int index = 0;
         int max = Integer.MIN_VALUE;
         int prev = 0;
         while(index < nums.length) {
             while(index < nums.length && nums[index] != 1) {
+                isFillOnes = false;
                 index++;
             }
             int current = 0;
@@ -43,6 +28,9 @@ public class Solution {
             }
 
         }
+        if (isFillOnes) {
+            return nums.length - 1;
+        }
         return max;
     }
     public static void main(String[] args) {
@@ -50,7 +38,7 @@ public class Solution {
         int[] arr1 = new int[]{1,1,1};
         int[] arr2 = new int[]{1,1,1,0,1,1,0,1,0,0,0};
 
-        //System.out.println(sol.longestSubarray(arr1));
+        System.out.println(sol.longestSubarray(arr1));
         System.out.println(sol.longestSubarray(arr2));
     }
 }
